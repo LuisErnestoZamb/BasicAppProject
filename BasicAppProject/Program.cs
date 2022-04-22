@@ -35,6 +35,10 @@ namespace BasicAppProject
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    builder.AddSystemsManager("/Coffee");
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

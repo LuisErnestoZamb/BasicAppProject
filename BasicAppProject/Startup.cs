@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,17 @@ namespace BasicAppProject
                     c.RoutePrefix = string.Empty;  // Set Swagger as root "/"
                 }
                 );
+            }
+            try
+            {
+                // Enable IAM AmazonSSMReadOnlyAccess policy.
+                String parameterStore01 = Configuration["DbAccess"];
+                String parameterStore02 = Configuration["ConnectionStrings:Connection2RDS"];
+                Log.Information("Parameter store 01: " + parameterStore01);
+                Log.Information("Parameter store 02: " + parameterStore02);
+            }
+            catch {
+                Log.Fatal("Error with parameter store");
             }
 
             app.UseRouting();
