@@ -26,7 +26,6 @@ namespace BasicAppProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,17 +47,11 @@ namespace BasicAppProject
                 }
                 );
             }
-            try
-            {
-                // Enable IAM AmazonSSMReadOnlyAccess policy.
-                String parameterStore01 = Configuration["DbAccess"];
-                String parameterStore02 = Configuration["ConnectionStrings:Connection2RDS"];
-                Log.Information("Parameter store 01: " + parameterStore01);
-                Log.Information("Parameter store 02: " + parameterStore02);
-            }
-            catch {
-                Log.Fatal("Error with parameter store");
-            }
+            // Enable IAM AmazonSSMReadOnlyAccess policy.
+            String parameterStore01 = Configuration["DbAccess"];
+            String parameterStore02 = Configuration["ConnectionStrings:Connection2RDS"];
+            Log.Information("Parameter store 01: " + parameterStore01);
+            Log.Information("Parameter store 02: " + parameterStore02);
 
             app.UseRouting();
 
